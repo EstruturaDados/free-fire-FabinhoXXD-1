@@ -4,22 +4,24 @@
 #include <stdbool.h>
 #define MAX_ITENS 10
 
-/* 
+/*
    Struct que representa um item da mochila.
-   Cada item possui:
-   - nome: nome do objeto
-   - tipo: categoria do objeto (arma, munição, cura, etc.)
-   - quantidade: quantidade disponível
-*/
-struct Item {
+      Cada item possui:
+         - nome: nome do objeto
+            - tipo: categoria do objeto (arma, munição, cura, etc.)
+               - quantidade: quantidade disponível
+               */
+struct Item
+{
     char nome[30];
     char tipo[20];
     int quantidade;
 };
 
-
-void inserirItem(struct Item mochila[], int *totalItens) {
-    if (*totalItens >= MAX_ITENS) {
+void inserirItem(struct Item mochila[], int *totalItens)
+{
+    if (*totalItens >= MAX_ITENS)
+    {
         printf("\nA mochila esta cheia! Limite de %d itens.\n", MAX_ITENS);
         return;
     }
@@ -40,18 +42,18 @@ void inserirItem(struct Item mochila[], int *totalItens) {
     printf("\nItem cadastrado com sucesso!\n");
 }
 
-
-
 /*
     Função para remover um item pelo nome.
-    A remoção é feita deslocando os elementos do vetor.
-*/
-void removerItem(struct Item mochila[], int *totalItens) {
+        A remoção é feita deslocando os elementos do vetor.
+        */
+void removerItem(struct Item mochila[], int *totalItens)
+{
     char nomeBusca[30];
     int i, j;
     int encontrado = 0;
 
-    if (*totalItens == 0) {
+    if (*totalItens == 0)
+    {
         printf("\nA mochila esta vazia!\n");
         return;
     }
@@ -60,12 +62,15 @@ void removerItem(struct Item mochila[], int *totalItens) {
     printf("Digite o nome do item a remover: ");
     scanf(" %29[^\n]", nomeBusca);
 
-    for (i = 0; i < *totalItens; i++) {
-        if (strcmp(mochila[i].nome, nomeBusca) == 0) {
+    for (i = 0; i < *totalItens; i++)
+    {
+        if (strcmp(mochila[i].nome, nomeBusca) == 0)
+        {
             encontrado = 1;
 
             /* Desloca os itens para preencher o espaço removido */
-            for (j = i; j < *totalItens - 1; j++) {
+            for (j = i; j < *totalItens - 1; j++)
+            {
                 mochila[j] = mochila[j + 1];
             }
 
@@ -76,29 +81,31 @@ void removerItem(struct Item mochila[], int *totalItens) {
         }
     }
 
-    if (!encontrado) {
+    if (!encontrado)
+    {
         printf("\nItem nao encontrado!\n");
     }
 }
 
-
-
 /*
     Função para listar todos os itens da mochila.
-*/
-void listarItens(struct Item mochila[], int totalItens) {
+    */
+void listarItens(struct Item mochila[], int totalItens)
+{
     int i;
 
     printf("\n========================================\n");
     printf("           ITENS DA MOCHILA\n");
     printf("========================================\n");
 
-    if (totalItens == 0) {
+    if (totalItens == 0)
+    {
         printf("A mochila esta vazia.\n");
         return;
     }
 
-    for (i = 0; i < totalItens; i++) {
+    for (i = 0; i < totalItens; i++)
+    {
         printf("Item %d\n", i + 1);
         printf("Nome       : %s\n", mochila[i].nome);
         printf("Tipo       : %s\n", mochila[i].tipo);
@@ -107,19 +114,18 @@ void listarItens(struct Item mochila[], int totalItens) {
     }
 }
 
-
-
-
 /*
     Função de busca sequencial.
-    Procura um item pelo nome e exibe seus dados.
-*/
-void buscarItem(struct Item mochila[], int totalItens) {
+        Procura um item pelo nome e exibe seus dados.
+        */
+void buscarItem(struct Item mochila[], int totalItens)
+{
     char nomeBusca[30];
     int i;
     int encontrado = 0;
 
-    if (totalItens == 0) {
+    if (totalItens == 0)
+    {
         printf("\nA mochila esta vazia!\n");
         return;
     }
@@ -128,8 +134,10 @@ void buscarItem(struct Item mochila[], int totalItens) {
     printf("Digite o nome do item a buscar: ");
     scanf(" %29[^\n]", nomeBusca);
 
-    for (i = 0; i < totalItens; i++) {
-        if (strcmp(mochila[i].nome, nomeBusca) == 0) {
+    for (i = 0; i < totalItens; i++)
+    {
+        if (strcmp(mochila[i].nome, nomeBusca) == 0)
+        {
             encontrado = 1;
 
             printf("\nItem encontrado!\n");
@@ -141,19 +149,20 @@ void buscarItem(struct Item mochila[], int totalItens) {
         }
     }
 
-    if (!encontrado) {
+    if (!encontrado)
+    {
         printf("\nItem nao encontrado!\n");
     }
 }
 
-
-
-int main() {
+int main()
+{
     struct Item mochila[MAX_ITENS];
     int totalItens = 0;
     int opcao;
 
-    do {
+    do
+    {
         printf("\n========================================\n");
         printf("      MOCHILA DE LOOT DO JOGADOR\n");
         printf("========================================\n");
@@ -166,41 +175,39 @@ int main() {
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
-        switch (opcao) {
-            case 1:
-                inserirItem(mochila, &totalItens);
-                listarItens(mochila, totalItens);
-                break;
+        switch (opcao)
+        {
+        case 1:
+            inserirItem(mochila, &totalItens);
+            listarItens(mochila, totalItens);
+            break;
 
-            case 2:
-                removerItem(mochila, &totalItens);
-                listarItens(mochila, totalItens);
-                break;
+        case 2:
+            removerItem(mochila, &totalItens);
+            listarItens(mochila, totalItens);
+            break;
 
-            case 3:
-                listarItens(mochila, totalItens);
-                break;
+        case 3:
+            listarItens(mochila, totalItens);
+            break;
 
-            case 4:
-                buscarItem(mochila, totalItens);
-                listarItens(mochila, totalItens);
-                break;
+        case 4:
+            buscarItem(mochila, totalItens);
+            listarItens(mochila, totalItens);
+            break;
 
-            case 0:
-                printf("\nSaindo do sistema...\n");
-                break;
+        case 0:
+            printf("\nSaindo do sistema...\n");
+            break;
 
-            default:
-                printf("\nOpcao invalida!\n");
+        default:
+            printf("\nOpcao invalida!\n");
         }
 
     } while (opcao != 0);
 
     return 0;
 }
-
-
-
 
 // Struct Item:
 // Representa um componente com nome, tipo, quantidade e prioridade (1 a 5).
